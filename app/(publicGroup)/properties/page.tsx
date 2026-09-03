@@ -2,12 +2,17 @@ import React from 'react'
 import { getAllProperties } from '../_actions/getAllProperties'
 import CardComponent from '../_components/CardComponent'
 import { PropertiesType } from '@/types/types'
+import PropertySearch from '../_components/PropertySearch'
 
-const page = async() => {
-    const data = await getAllProperties()
-    console.log("properties", data)
+const page = async({searchParams} : {searchParams: Promise<{ searchTerm?: string }>}) => {
+    
+    const {searchTerm} = await searchParams
+    // const searchTerm = await searchParams.searchTerm || ""
+    const query = searchTerm || ""
+   const data = await getAllProperties(query)
   return (
     <div>
+      <PropertySearch></PropertySearch>
         <h2>Properties Page</h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
