@@ -17,11 +17,11 @@ export async function loginAction (prevState : registerPrvStateType,formData : F
     const result = await accessToken.json()
 
     const decode = jwt.decode(result.data.accessToken)
-    console.log("accesstoken",result,decode)
+    console.log("accesstoken from auth",result.data.accessToken)
 
-    const cookieStore = cookies()
-    if(result.success && result.data.accssToken){
-        (await cookieStore).set("accessToken",result.data.accssToken,{
+    const cookieStore = await cookies()
+    if(result.success && result.data.accessToken){
+        cookieStore.set("accessToken",result.data.accessToken,{
             httpOnly: true,
             maxAge: 60 * 60 * 24,
             sameSite: "lax"
