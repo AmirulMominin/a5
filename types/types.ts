@@ -11,3 +11,8 @@ export type PropertiesType ={
       createdAt: string,
       updatedAt: string
 }
+
+export type registerPrvStateType = {
+    success: string,
+    message: string
+}

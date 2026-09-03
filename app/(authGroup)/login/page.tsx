@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import Link from "next/link";
 import { Mail, Lock } from "lucide-react";
 
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { loginAction } from "../_actions/loginAction";
+import { toast } from "sonner";
 
 const LoginPage = () => {
     const [state,action,pending] = useActionState(loginAction, null)
@@ -29,7 +30,14 @@ const LoginPage = () => {
       password,
     });
   };
-
+useEffect(() => {
+    if(!state) return;
+    if(state.success){
+        toast.success("User login succesfullylly")
+    }else if(!state.success){
+        toast.error(state.message)
+    }
+  }, [state]);
 
 
   return (
@@ -104,7 +112,7 @@ const LoginPage = () => {
           <p className="mt-6 text-center text-sm text-muted-foreground">
             Don't have an account?{" "}
             <Link
-              href="/auth/register"
+              href="/registration"
               className="font-medium text-primary hover:underline"
             >
               Create account

@@ -1,7 +1,8 @@
 "use server"
+import { registerPrvStateType } from "@/types/types"
 import jwt from "jsonwebtoken"
 import { cookies } from "next/headers"
-export async function loginAction (prevState : {email: string, password: string},formData : FormData){
+export async function loginAction (prevState : registerPrvStateType,formData : FormData){
     const email = formData.get("email") 
     const password = formData.get("password") 
     
@@ -26,5 +27,10 @@ export async function loginAction (prevState : {email: string, password: string}
             sameSite: "lax"
         }
  )
+    }
+
+    return {
+        success: result.success,
+        message: result.message
     }
 }
