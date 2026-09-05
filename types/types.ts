@@ -3,6 +3,7 @@ export type PropertiesType ={
       name: string,
       details: string,
       rent: string,
+      image : string,
       type: string,
       location: string,
       status: string,

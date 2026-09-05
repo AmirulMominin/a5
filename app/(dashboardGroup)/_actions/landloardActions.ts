@@ -80,3 +80,46 @@ export async function createNewProperty(prevState, formData: FormData){
         message: result.message
     }
 }
+
+
+
+export async function updateProperty(propertyId,prevState, formData: FormData){
+    let categoryId
+    const type =  formData.get("type")
+    if(type === "PLOT"){
+        categoryId = categoryIdObject.PLOT
+    }else if(type === "HOUSE"){
+        categoryId = categoryIdObject.HOUSE
+    }
+    else if(type === "FLAT"){
+        categoryId = categoryIdObject.FLAT
+    }
+    const payload = {
+        name: formData.get("name") || "",
+        details: formData.get("description") || "",
+        rent: formData.get("rent") || "",
+        type: type,
+        location: formData.get("location") || "",
+        image: formData.get("image") || "" ,
+        categoryId
+        
+    }
+    console.log(payload)
+
+    const data = await fetch(`${process.env.BACKEND_URL}/api/landlord/properties/${propertyId}`,{
+        method: "PUT",
+        headers:{
+        'Content-Type': 'application/json',
+        Cookie : `accessToken=${accessToken}`
+        },
+        body: JSON.stringify(payload)
+    })
+    const result =  await data.json()
+    if(result.success){
+        revalidatePath("/landloard/properties");
+    }
+    return {
+        success : result.success,
+        message: result.message
+    }
+}

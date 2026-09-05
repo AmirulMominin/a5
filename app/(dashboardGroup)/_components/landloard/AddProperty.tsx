@@ -21,13 +21,20 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { createNewProperty } from "../../_actions/landloardActions";
+import { createNewProperty, updateProperty } from "../../_actions/landloardActions";
 import { toast } from "sonner";
+import { PropertiesType } from "@/types/types";
+import { create } from "domain";
 
+type AddPropertyPropsType = {
+  mode : "create" | "edit",
+property ? : PropertiesType}
 
-const AddPropertyDialog = () => {
+const AddPropertyDialog = ({mode, property} : AddPropertyPropsType) => {
+  console.log(" line 33 mode",mode)
   const [open, setOpen] = useState(false);
-  const [state,action,pending] = useActionState(createNewProperty, null)
+  const actionFunction = mode === "create" ? createNewProperty : updateProperty.bind(null, property?.id);
+  const [state,action,pending] = useActionState(actionFunction, null)
 
 //   const [formData, setFormData] = useState({
 //     name: "",
@@ -78,12 +85,12 @@ useEffect(()=>{
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger >
-        <Button>+ Add Property</Button>
+        <Button>{mode === "create" ? "+- Add Property" : "Edit"}</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>Add New Property</DialogTitle>
+          <DialogTitle>{mode === "create" ? " Add New Property" : "Edit Your Property"}</DialogTitle>
           <DialogDescription>
             Enter the details of your property below.
           </DialogDescription>
@@ -97,7 +104,7 @@ useEffect(()=>{
               id="name"
               name="name"
               placeholder="e.g. Modern 2 Bedroom Apartment"
-             
+             defaultValue={property?.name}
               required
             />
           </div>
@@ -109,7 +116,7 @@ useEffect(()=>{
               id="description"
               name="description"
               placeholder="Describe your property..."
-              
+              defaultValue={property?.details}
               required
             />
           </div>
@@ -123,12 +130,12 @@ useEffect(()=>{
                 name="rent"
                 type="number"
                 placeholder="25000"
-                
+                defaultValue={property?.rent}
                 required
               />
             </div>
 
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label htmlFor="area">Area (sq ft)</Label>
               <Input
                 id="area"
@@ -138,7 +145,7 @@ useEffect(()=>{
                 
                 required
               />
-            </div>
+            </div> */}
           </div>
 
           {/* Type */}
@@ -157,7 +164,7 @@ useEffect(()=>{
          {/* Property Type Dropdown */}
           <div className="space-y-2">
             <Label htmlFor="type">Property Type</Label>
-            <Select name="type" required>
+            <Select name="type" defaultValue={property?.type} required>
               <SelectTrigger id="type">
                 <SelectValue placeholder="Select Property Type" />
               </SelectTrigger>
@@ -179,7 +186,7 @@ useEffect(()=>{
               id="location"
               name="location"
               placeholder="e.g. Mirpur, Dhaka"
-              
+              defaultValue={property?.location}
               required
             />
           </div>
@@ -191,7 +198,7 @@ useEffect(()=>{
               id="image"
               name="image"
               placeholder="https://example.com/property.jpg"
-              
+              defaultValue={property?.image}
               required
             />
           </div>
@@ -205,7 +212,7 @@ useEffect(()=>{
               Cancel
             </Button>
 
-            <Button type="submit">Add Property</Button>
+            <Button type="submit">{mode === "create" ? "Add Property" : "Edit"}</Button>
           </DialogFooter>
         </form>
       </DialogContent>

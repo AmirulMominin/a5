@@ -66,7 +66,7 @@ const LandlordPropertiesPage = async() => {
           </p>
         </div>
 
-        {<AddPropertyDialog></AddPropertyDialog>}
+        {<AddPropertyDialog mode="create"></AddPropertyDialog>}
         {/* <Button asChild>
           <Link href="/dashboard/landlord/properties/new">
             + Add Property
@@ -148,11 +148,12 @@ const LandlordPropertiesPage = async() => {
                 asChild
                 className="flex-1"
               >
-                <Link
+                {/* <Link
                   href={`/dashboard/landlord/properties/${property.id}/edit`}
                 >
                   Edit
-                </Link>
+                </Link> */}
+                <AddPropertyDialog mode={"edit"} property={property}></AddPropertyDialog>
               </Button>
             </CardFooter>
           </Card>
