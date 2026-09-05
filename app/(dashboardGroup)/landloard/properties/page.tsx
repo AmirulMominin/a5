@@ -9,6 +9,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { getProperty } from "../../_actions/landloardActions";
+import AddPropertyDialog from "../../_components/landloard/AddProperty";
 
 // const properties = [
 //   {
@@ -48,7 +49,7 @@ import { getProperty } from "../../_actions/landloardActions";
 
 const LandlordPropertiesPage = async() => {
   const properties = await getProperty()
-  // console.log("ine 51",properties)
+  console.log("ine 51",properties)
   return (
     // <div></div>
     <main className="container mx-auto px-4 py-8">
@@ -65,16 +66,18 @@ const LandlordPropertiesPage = async() => {
           </p>
         </div>
 
-        <Button asChild>
+        {<AddPropertyDialog></AddPropertyDialog>}
+        {/* <Button asChild>
           <Link href="/dashboard/landlord/properties/new">
             + Add Property
           </Link>
-        </Button>
+        </Button> */}
+        
       </div>
 
       {/* Properties */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {properties.data.map((property) => (
+        {properties.data?.map((property) => (
           <Card
             key={property.id}
             className="overflow-hidden"
@@ -82,7 +85,7 @@ const LandlordPropertiesPage = async() => {
             {/* Image */}
             <div className="relative h-52 w-full">
               <Image
-                src={property.thumbnail}
+                src={property.image}
                 alt={property.name}
                 fill
                 className="object-cover"
