@@ -123,3 +123,19 @@ export async function updateProperty(propertyId,prevState, formData: FormData){
         message: result.message
     }
 }
+
+
+export  async function deleteProperty(propertyId: string){
+  const data = await fetch(`${process.env.BACKEND_URL}/api/landlord/properties/${propertyId}`,{
+        method: "DELETE",
+        headers:{
+        Cookie : `accessToken=${accessToken}`
+        }
+        
+    }) 
+    const result = await data.json()
+    if(result.success){
+        revalidatePath("/landloard/properties");
+    }
+    return result.success
+}

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { getProperty } from "../../_actions/landloardActions";
 import AddPropertyDialog from "../../_components/landloard/AddProperty";
+import DeletePropertyButton from "../../_components/landloard/DeletePropertyButton";
 
 // const properties = [
 //   {
@@ -133,19 +134,20 @@ const LandlordPropertiesPage = async() => {
 
             <CardFooter className="flex gap-2">
               <Button
-                asChild
+                
                 variant="outline"
                 className="flex-1"
               >
-                <Link
+                {/* <Link
                   href={`/properties/${property.id}`}
                 >
                   View
-                </Link>
+                </Link> */}
+                <DeletePropertyButton propertyId={property.id}></DeletePropertyButton>
               </Button>
 
               <Button
-                asChild
+                
                 className="flex-1"
               >
                 {/* <Link
