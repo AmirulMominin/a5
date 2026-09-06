@@ -139,3 +139,31 @@ export  async function deleteProperty(propertyId: string){
     }
     return result.success
 }
+
+export async function getAllRequests() {
+    const result =await fetch(`${process.env.BACKEND_URL}/api/landlord/properties/requests`,{
+        method: "GET",
+        headers:{
+            
+        Cookie : `accessToken=${accessToken}`
+        },
+        
+    }) 
+        const data = await result.json()
+        return data
+}
+
+
+export async function requestsDecision(status: string, propertyId: string) {
+    const result =await fetch(`${process.env.BACKEND_URL}/api/landlord/properties/requests/${propertyId}`,{
+        method: "PATCH",
+        headers:{
+            'Content-Type': 'application/json',
+        Cookie : `accessToken=${accessToken}`
+        },
+        body: JSON.stringify({status})
+    }) 
+        revalidatePath('/landloard/requests')
+        const data = await result.json()
+        return data
+}
