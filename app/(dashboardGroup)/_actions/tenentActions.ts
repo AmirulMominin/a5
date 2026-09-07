@@ -43,3 +43,21 @@ export async function isApplied (propertyId : string){
     
     return data
 }
+
+
+export async function getAllRequest (){
+    const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value || "";
+    const result = await fetch(`${process.env.BACKEND_URL}/api/rentals`,{
+        method: "GET",
+        headers:{
+            Cookie : `accessToken=${accessToken}`,
+             
+        },
+        
+    }
+)
+    const data = await result.json()
+    
+    return data
+}
