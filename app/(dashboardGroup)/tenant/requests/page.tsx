@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getAllRequest } from "../../_actions/tenentActions";
+import PaymentButton from "../../_components/payment/PaymentButton";
 
 // const requests = [
 //   {
@@ -121,9 +122,10 @@ console.log("41",allRentalRequest)
                 <TableCell>
                   <div className="flex justify-end">
                     {request.rentalStatus === "APPROVE" && (
-                      <Button size="sm">
-                        Pay Now
-                      </Button>
+                      // <Button size="sm">
+                      //   Pay Now
+                      // </Button>
+                      <PaymentButton rentalId={request.id}></PaymentButton>
                     )}
 
                     {request.rentalStatus === "PENDING" && (
