@@ -1,12 +1,23 @@
-import React from 'react'
 import { getPropertyById } from '../../_actions/getPropertyById'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import Link from 'next/link'
+import Image from 'next/image'
+import RequestRentalButton from '@/app/(dashboardGroup)/_components/tenant/RequestRentalButton'
+import { isApplied } from '@/app/(dashboardGroup)/_actions/tenentActions'
 
 const getByIdPage = async({params}: {params: Promise<{ id: string }>}) => {
+  let applied
     const {id} = (await params)
     const property = await getPropertyById(id)
+    const alreadyRequested = await isApplied(property.data.id)
+    
+    if(alreadyRequested.data){
+      applied = true
+    }else{
+      applied = false
+    }
+    console.log("line 20" , applied)
     
   return (
     <main className="container mx-auto px-4 py-10">
@@ -23,19 +34,19 @@ const getByIdPage = async({params}: {params: Promise<{ id: string }>}) => {
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Image */}
         <div className="relative h-[400px] overflow-hidden rounded-xl">
-          {/* <Image
-            src={property.thumbnail}
+           <Image
+            src={property.data.image}
             alt={property.name}
             fill
             className="object-cover"
-          /> */}
+          /> 
         </div>
 
         {/* Details */}
         <div className="flex flex-col justify-center">
           <div className="mb-4">
             <span className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">
-              {property.type}
+              {property.data.type}
             </span>
           </div>
 
@@ -60,9 +71,10 @@ const getByIdPage = async({params}: {params: Promise<{ id: string }>}) => {
           </div>
 
           <div className="mt-6 flex gap-4">
-            <Button size="lg">
+            {/* <Button size="lg">
               Request to Rent
-            </Button>
+            </Button> */}
+            <RequestRentalButton propertyId = {property.data.id} applied={applied}></RequestRentalButton>
 
             <Button size="lg" variant="outline">
               Contact Landlord

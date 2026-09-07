@@ -17,12 +17,12 @@ const CardComponent = ({property} : {property : PropertiesType}) => {
     <Card className="overflow-hidden">
       {/* Thumbnail */}
       <div className="relative h-52 w-full">
-        {/* <Image
-          src={thumbnail}
-          alt={name}
+        <Image
+          src={property?.image}
+          alt={property?.name}
           fill
           className="object-cover"
-        /> */}
+        /> 
       </div>
 
       <CardHeader>
