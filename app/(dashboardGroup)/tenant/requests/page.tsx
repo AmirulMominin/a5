@@ -106,13 +106,17 @@ console.log("41",allRentalRequest)
                 {/* Status */}
                 <TableCell>
                   <Badge
-                    variant={
-                      request.rentalStatus === "ACCEPTED"
-                        ? "default"
-                        : request.rentalStatus === "REJECTED"
-                          ? "destructive"
-                          : "secondary"
-                    }
+                     className={
+    request.rentalStatus === "PENDING"
+      ? "bg-yellow-500 text-white"
+      : request.rentalStatus === "APPROVE"
+        ? "bg-blue-500 text-white"
+        : request.rentalStatus === "REJECT"
+          ? "bg-red-500 text-white"
+          : request.rentalStatus === "ACTIVE"
+            ? "bg-green-500 text-white"
+            : "bg-gray-500 text-white"
+  }
                   >
                     {request.rentalStatus}
                   </Badge>
@@ -127,6 +131,12 @@ console.log("41",allRentalRequest)
                       // </Button>
                       <PaymentButton rentalId={request.id}></PaymentButton>
                     )}
+                    {/* {request.rentalStatus === "ACTIVE" && (
+                      // <Button size="sm">
+                      //   Pay Now
+                      // </Button>
+                      
+                    )} */}
 
                     {request.rentalStatus === "PENDING" && (
                       <span className="text-sm text-muted-foreground">
