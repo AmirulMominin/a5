@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { getAllRequest } from "../../_actions/tenentActions";
 import PaymentButton from "../../_components/payment/PaymentButton";
+import ReviewDialog from "../../_components/review/ReviewButton";
 
 // const requests = [
 //   {
@@ -42,7 +43,8 @@ import PaymentButton from "../../_components/payment/PaymentButton";
 
 const TenantRequestsPage = async() => {
   const allRentalRequest = await getAllRequest()
-console.log("41",allRentalRequest)
+console.log("46",allRentalRequest.data[0].review)
+console.log("47",allRentalRequest)
 
   return (
     <div className="space-y-6 p-6">
@@ -131,12 +133,13 @@ console.log("41",allRentalRequest)
                       // </Button>
                       <PaymentButton rentalId={request.id}></PaymentButton>
                     )}
-                    {/* {request.rentalStatus === "ACTIVE" && (
+                    {request.rentalStatus === "ACTIVE" && (
                       // <Button size="sm">
                       //   Pay Now
                       // </Button>
+                      <ReviewDialog rentalId={request.id} propertyId={request.propertyId} reviewed={request.review?.length > 0}></ReviewDialog>
                       
-                    )} */}
+                    )}
 
                     {request.rentalStatus === "PENDING" && (
                       <span className="text-sm text-muted-foreground">
