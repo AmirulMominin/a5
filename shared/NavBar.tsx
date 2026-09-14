@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { IUser } from "@/types/types";
+import { logout } from "@/service/logOut";
 
 type NavBarProps = {
   data: IUser | null; 
@@ -31,8 +32,8 @@ const NavBar = ({ data }: NavBarProps) => {
         ? "/dashboard/landlord"
         : "/dashboard/tenant";
 
-  const handleLogout = () => {
-    console.log("Logout");
+  const handleLogout = async() => {
+    await logout()
   };
 
   return (
