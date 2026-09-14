@@ -1,8 +1,19 @@
 "use client";
-
-import { getAllUsers } from '@/app/(dashboardGroup)/_actions/adminActions';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { banUnban, getAllUsers } from '@/app/(dashboardGroup)/_actions/adminActions';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
+
 
 function UserList() {
   const router = useRouter();
@@ -17,6 +28,7 @@ function UserList() {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
 
+  
   
   const updateQueryParams = (newPage: number, newSearch?: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -39,7 +51,7 @@ function UserList() {
       try {
         // Pass page & searchTerm to your server action!
         const response = await getAllUsers(page.toString(), searchTerm);
-        
+        console.log(response,"61")
         setUsers(response?.data?.user ?? []);
         
         const limit = 5; 
@@ -55,6 +67,20 @@ function UserList() {
     fetchUsers();
   }, [page, searchTerm]); // 
 
+
+  const ban = async(uid:string,data:string)=>{
+    const user = await banUnban(uid,data)
+    console.log(user,"32")
+    if(user.success){
+      toast.success("User status updated")
+      setUsers((prev) =>
+      prev.map((u) => (u.id === uid ? { ...u, status: data } : u))
+    );
+    }else(
+      toast.error("Error")
+    )
+  }
+
   return (
     <div>
       {/* Search Input */}
@@ -68,13 +94,67 @@ function UserList() {
 
       {loading ? (
         <p>Loading...</p>
-      ) : (
-        <ul>
-          {users.map((item: any) => (
-            <li key={item.id}>{item.name || item.email}</li>
+      ) :<div className="rounded-md border">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Role</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead className="text-right">Action</TableHead>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
+          {users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell className="font-medium">
+                {user.name}
+              </TableCell>
+
+              <TableCell>
+                {user.email}
+              </TableCell>
+
+              <TableCell>
+                <Badge variant="outline">
+                  {user.role}
+                </Badge>
+              </TableCell>
+
+              <TableCell>
+                {user.status === "ACTIVE" ? (
+                  <Badge>Active</Badge>
+                ) : (
+                  <Badge variant="destructive">
+                    Banned
+                  </Badge>
+                )}
+              </TableCell>
+
+              <TableCell className="text-right">
+                {user.status === "ACTIVE" ? (
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={()=>ban(user.id,"BANNED")}
+                  >
+                    Ban
+                  </Button>
+                ) : (
+                  <Button size="sm"
+                  onClick={()=>ban(user.id,"ACTIVE")}
+                  >
+                    Unban
+                  </Button>
+                )}
+              </TableCell>
+            </TableRow>
           ))}
-        </ul>
-      )}
+        </TableBody>
+      </Table>
+      </div>}
 
       {/* Pagination Controls */}
       <div>

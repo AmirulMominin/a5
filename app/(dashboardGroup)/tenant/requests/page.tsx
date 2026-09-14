@@ -65,7 +65,7 @@ console.log("47",allRentalRequest)
           <TableHeader>
             <TableRow>
               {/* <TableHead>Property</TableHead> */}
-              <TableHead>Proerty</TableHead>
+              <TableHead>Property</TableHead>
               <TableHead>Rent</TableHead>
              
               <TableHead>Requested</TableHead>
