@@ -17,3 +17,31 @@ export type registerPrvStateType = {
     success: string,
     message: string
 }
+
+export type IUser = {
+    success : boolean,
+    message : string,
+    data : {
+         
+            id : string,
+            name : string,
+            email : string,
+            activeStatus : string,
+            role : string,
+            createdAt : string,
+            updatedAt : string,
+            stripeCustomerId ? :string
+        
+    }
+} 
+
+export type UserData = {
+  id: string;
+  name: string;
+  email: string;
+  activeStatus: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+  stripeCustomerId?: string;
+};

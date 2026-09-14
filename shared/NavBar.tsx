@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -16,19 +15,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { IUser } from "@/types/types";
 
-const NavBar = () => {
-  
-  const user = {
-    name: "John Doe",
-    email: "john@gmail.com",
-    role: "TENANT",
-  };
+type NavBarProps = {
+  data: IUser | null; 
+};
+
+const NavBar = ({ data }: NavBarProps) => {
+  const user = data?.data ?? null; 
 
   const dashboardPath =
-    user.role === "ADMIN"
+    user?.role === "ADMIN"
       ? "/dashboard/admin"
-      : user.role === "LANDLORD"
+      : user?.role === "LANDLORD"
         ? "/dashboard/landlord"
         : "/dashboard/tenant";
 
@@ -39,108 +38,56 @@ const NavBar = () => {
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-
-        
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-xl font-bold"
-        >
+        <Link href="/" className="flex items-center gap-2 text-xl font-bold">
           <Home className="h-6 w-6" />
           <span>RentNest</span>
         </Link>
 
-        
         <div className="hidden items-center gap-6 md:flex">
-          <Link
-            href="/"
-            className="text-sm font-medium hover:text-primary"
-          >
+          <Link href="/" className="text-sm font-medium hover:text-primary">
             Home
           </Link>
-
-          <Link
-            href="/properties"
-            className="text-sm font-medium hover:text-primary"
-          >
+          <Link href="/properties" className="text-sm font-medium hover:text-primary">
             Properties
           </Link>
-
-          <Link
-            href="/categories"
-            className="text-sm font-medium hover:text-primary"
-          >
+          <Link href="/categories" className="text-sm font-medium hover:text-primary">
             Categories
           </Link>
-
-          <Link
-            href="/about"
-            className="text-sm font-medium hover:text-primary"
-          >
+          <Link href="/about" className="text-sm font-medium hover:text-primary">
             About
           </Link>
         </div>
 
-        {/* =========================
-            RIGHT SIDE
-        ========================== */}
         <div className="flex items-center gap-3">
-
           {user ? (
             <DropdownMenu>
-
-              
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
                   className="flex h-10 items-center gap-2 rounded-md border bg-background px-3 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
                 >
                   <User className="h-4 w-4" />
-
-                  <span className="hidden sm:inline">
-                    {user.name}
-                  </span>
+                  <span className="hidden sm:inline">{user.name}</span>
                 </button>
               </DropdownMenuTrigger>
 
-              
-              <DropdownMenuContent
-                align="end"
-                className="w-64"
-              >
-
-               
-
+              <DropdownMenuContent align="end" className="w-64">
                 <div className="px-2 py-3">
-                  <p className="text-sm font-semibold">
-                    {user.name}
-                  </p>
-
-                  <p className="text-xs text-muted-foreground">
-                    {user.email}
-                  </p>
-
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {user.role}
-                  </p>
+                  <p className="text-sm font-semibold">{user.name}</p>
+                  <p className="text-xs text-muted-foreground">{user.email}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{user.role}</p>
                 </div>
 
                 <DropdownMenuSeparator />
 
-                
-
                 <DropdownMenuItem asChild>
-                  <Link
-                    href={dashboardPath}
-                    className="cursor-pointer"
-                  >
+                  <Link href={dashboardPath} className="cursor-pointer">
                     <LayoutDashboard className="mr-2 h-4 w-4" />
                     Dashboard
                   </Link>
                 </DropdownMenuItem>
 
                 <DropdownMenuSeparator />
-
-                {/* LOGOUT */}
 
                 <DropdownMenuItem
                   onClick={handleLogout}
@@ -149,12 +96,9 @@ const NavBar = () => {
                   <LogOut className="mr-2 h-4 w-4" />
                   Logout
                 </DropdownMenuItem>
-
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-           
-
             <div className="flex items-center gap-2">
               <Link href="/login">
                 <button
@@ -175,7 +119,6 @@ const NavBar = () => {
               </Link>
             </div>
           )}
-
         </div>
       </div>
     </nav>
@@ -183,4 +126,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
