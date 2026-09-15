@@ -11,9 +11,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllRequests, requestsDecision } from "../../_actions/landloardActions";
+import { getAllRequests, requestsDecision } from "../../../_actions/landloardActions";
 import { toast } from "sonner";
-import StatusButton from "../../_components/landloard/StatusButton";
+import StatusButton from "../../../_components/landloard/StatusButton";
 
 
 

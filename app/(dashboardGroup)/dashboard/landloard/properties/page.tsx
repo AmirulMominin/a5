@@ -8,9 +8,9 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { getProperty } from "../../_actions/landloardActions";
-import AddPropertyDialog from "../../_components/landloard/AddProperty";
-import DeletePropertyButton from "../../_components/landloard/DeletePropertyButton";
+import { getProperty } from "../../../_actions/landloardActions";
+import AddPropertyDialog from "../../../_components/landloard/AddProperty";
+import DeletePropertyButton from "../../../_components/landloard/DeletePropertyButton";
 
 // const properties = [
 //   {

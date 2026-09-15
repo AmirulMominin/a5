@@ -26,10 +26,10 @@ const NavBar = ({ data }: NavBarProps) => {
   const user = data?.data ?? null; 
 
   const dashboardPath =
-    user?.role === "ADMIN"
+    user?.role === "Admin"
       ? "/dashboard/admin"
-      : user?.role === "LANDLORD"
-        ? "/dashboard/landlord"
+      : user?.role === "Landlord"
+        ? "/dashboard/landloard"
         : "/dashboard/tenant";
 
   const handleLogout = async() => {
@@ -110,7 +110,7 @@ const NavBar = ({ data }: NavBarProps) => {
                 </button>
               </Link>
 
-              <Link href="/register">
+              <Link href="/registration">
                 <button
                   type="button"
                   className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
