@@ -13,7 +13,7 @@ const page = async({searchParams} : {searchParams: Promise<{ searchTerm?: string
   return (
     <div>
       <PropertySearch></PropertySearch>
-        <h2>Properties Page</h2>
+        
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
             data.data.map((property : PropertiesType)=><CardComponent key={property.id} property={property}></CardComponent>)

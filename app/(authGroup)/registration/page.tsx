@@ -24,15 +24,18 @@ import {
 } from "@/components/ui/select";
 import { registerAction } from "../_actions/registerAction";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
+  const router = useRouter()
   const [role, setRole] = useState("");
   const [state, action, pending] = useActionState(registerAction, null);
 
   useEffect(() => {
     if(!state) return;
     if(state.success){
-        toast.success("User Register succesfullylly")
+        toast.success("User Register succesfullylly, Now login")
+        router.push('/login')
     }else if(!state.success){
         toast.error(state.message)
     }

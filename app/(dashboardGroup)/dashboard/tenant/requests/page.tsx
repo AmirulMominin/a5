@@ -8,9 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllRequest } from "../../_actions/tenentActions";
-import PaymentButton from "../../_components/payment/PaymentButton";
-import ReviewDialog from "../../_components/review/ReviewButton";
+
+import PaymentButton from "../../../_components/payment/PaymentButton";
+import ReviewDialog from "../../../_components/review/ReviewButton";
+import { getAllRequest } from "@/app/(dashboardGroup)/_actions/tenentActions";
 
 // const requests = [
 //   {
@@ -43,7 +44,7 @@ import ReviewDialog from "../../_components/review/ReviewButton";
 
 const TenantRequestsPage = async() => {
   const allRentalRequest = await getAllRequest()
-console.log("46",allRentalRequest.data[0].review)
+console.log("46",allRentalRequest.data[0]?.review)
 console.log("47",allRentalRequest)
 
   return (

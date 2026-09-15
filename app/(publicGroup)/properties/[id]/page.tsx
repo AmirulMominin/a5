@@ -10,6 +10,7 @@ const getByIdPage = async({params}: {params: Promise<{ id: string }>}) => {
   let applied
     const {id} = (await params)
     const property = await getPropertyById(id)
+    // console.log(property.landlord.email,"13")
     const alreadyRequested = await isApplied(property.data.id)
     
     if(alreadyRequested.data){
@@ -36,7 +37,7 @@ const getByIdPage = async({params}: {params: Promise<{ id: string }>}) => {
         <div className="relative h-[400px] overflow-hidden rounded-xl">
            <Image
             src={property.data.image}
-            alt={property.name}
+            alt={property.data.name}
             fill
             className="object-cover"
           /> 
@@ -62,7 +63,7 @@ const getByIdPage = async({params}: {params: Promise<{ id: string }>}) => {
 
           <div className="mt-6">
             <p className="text-3xl font-bold">
-              ৳{property.data.rent.toLocaleString()}
+              ${property.data.rent.toLocaleString()}
               <span className="text-base font-normal text-muted-foreground">
                 {" "}
                 / month
@@ -107,7 +108,7 @@ const getByIdPage = async({params}: {params: Promise<{ id: string }>}) => {
                 Area
               </p>
               <p className="mt-1 font-semibold">
-                {property.data.area} sq ft
+                {property.data.location} 
               </p>
             </CardContent>
           </Card>
@@ -118,7 +119,7 @@ const getByIdPage = async({params}: {params: Promise<{ id: string }>}) => {
                 Monthly Rent
               </p>
               <p className="mt-1 font-semibold">
-                ৳{property.data.rent}
+                ${property.data.rent}
               </p>
             </CardContent>
           </Card>

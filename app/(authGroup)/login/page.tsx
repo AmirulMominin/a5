@@ -46,7 +46,7 @@ useEffect(() => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl">
-            Welcome Back
+            Welcome Back 
           </CardTitle>
 
           <CardDescription>
@@ -103,8 +103,8 @@ useEffect(() => {
             
 
             {/* Login button */}
-            <Button type="submit" className="w-full">
-              Login
+            <Button type="submit" className="w-full" disabled={pending}>
+              {pending ? "Working..." : "Login"}
             </Button>
           </form>
 
