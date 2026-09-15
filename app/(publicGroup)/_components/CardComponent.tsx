@@ -11,7 +11,7 @@ import { PropertiesType } from "@/types/types";
 import { Maximize } from "lucide-react";
 import Link from "next/link";
 const CardComponent = ({property} : {property : PropertiesType}) => {
-  
+  console.log(property,"14")
   return (
    
     <Card className="overflow-hidden">
@@ -44,7 +44,7 @@ const CardComponent = ({property} : {property : PropertiesType}) => {
         {/* Area */}
         <div className="mt-4 flex items-center gap-2 text-sm">
           <Maximize className="h-4 w-4" />
-          <span>{property.location} sq ft</span>
+          {property.location} 
         </div>
 
         {/* Price */}

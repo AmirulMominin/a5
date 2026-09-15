@@ -51,9 +51,7 @@ const NavBar = ({ data }: NavBarProps) => {
           <Link href="/properties" className="text-sm font-medium hover:text-primary">
             Properties
           </Link>
-          <Link href="/categories" className="text-sm font-medium hover:text-primary">
-            Categories
-          </Link>
+          
           <Link href="/about" className="text-sm font-medium hover:text-primary">
             About
           </Link>
@@ -62,7 +60,7 @@ const NavBar = ({ data }: NavBarProps) => {
         <div className="flex items-center gap-3">
           {user ? (
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger >
                 <button
                   type="button"
                   className="flex h-10 items-center gap-2 rounded-md border bg-background px-3 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
@@ -81,7 +79,7 @@ const NavBar = ({ data }: NavBarProps) => {
 
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem >
                   <Link href={dashboardPath} className="cursor-pointer">
                     <LayoutDashboard className="mr-2 h-4 w-4" />
                     Dashboard

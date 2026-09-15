@@ -16,8 +16,15 @@ export async function loginAction (prevState : registerPrvStateType,formData : F
         body: JSON.stringify({ email, password }),
     })
     const result = await accessToken.json()
+    console.log(result, "result 19")
+    if(!result.data.success){
+        return {
+        success: result.data.success,
+        message: result.data.message
+    }
+    }
 
-    const decode = jwt.decode(result.data.accessToken) as JwtPayload
+    const decode = jwt.decode(result.data?.accessToken) as JwtPayload
     console.log("accesstoken from auth",result.data.accessToken)
 
     const cookieStore = await cookies()

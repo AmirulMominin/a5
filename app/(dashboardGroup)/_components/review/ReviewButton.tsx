@@ -56,7 +56,7 @@ const [success, setSuccess] = useState(false)
           Leave Review
         </Button>
       </DialogTrigger> */}
-      <DialogTrigger asChild disabled={success || review}>
+      <DialogTrigger  disabled={success || review}>
   <Button size="sm" disabled={success || review}>
     Leave Review
   </Button>

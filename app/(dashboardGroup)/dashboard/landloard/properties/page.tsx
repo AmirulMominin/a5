@@ -11,6 +11,7 @@ import {
 import { getProperty } from "../../../_actions/landloardActions";
 import AddPropertyDialog from "../../../_components/landloard/AddProperty";
 import DeletePropertyButton from "../../../_components/landloard/DeletePropertyButton";
+import { PropertiesType } from "@/types/types";
 
 // const properties = [
 //   {
@@ -78,7 +79,7 @@ const LandlordPropertiesPage = async() => {
 
       {/* Properties */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {properties.data?.map((property) => (
+        {properties.data?.map((property: PropertiesType) => (
           <Card
             key={property.id}
             className="overflow-hidden"

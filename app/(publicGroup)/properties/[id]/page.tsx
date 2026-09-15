@@ -77,9 +77,7 @@ const getByIdPage = async({params}: {params: Promise<{ id: string }>}) => {
             </Button> */}
             <RequestRentalButton propertyId = {property.data.id} applied={applied}></RequestRentalButton>
 
-            <Button size="lg" variant="outline">
-              Contact Landlord
-            </Button>
+            
           </div>
         </div>
       </div>

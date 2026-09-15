@@ -16,7 +16,19 @@ import { toast } from "sonner";
 import StatusButton from "../../../_components/landloard/StatusButton";
 
 
-
+type RequestType = {
+  id: string
+  rentalStatus: "PENDING" | "ACCEPTED" | "REJECTED"
+  tenant: {
+    name: string
+    email: string
+  }
+  property: {
+    name: string
+    rent: string | number
+    createdAt: string
+  }
+}
 
 const LandlordRequestsPage = async() => {
   
@@ -60,7 +72,7 @@ const LandlordRequestsPage = async() => {
           </TableHeader>
 
           <TableBody>
-            {requests.data.map((request) => (
+            {requests.data.map((request: RequestType) => (
               <TableRow key={request.id}>
                 {/* Tenant */}
                 <TableCell>

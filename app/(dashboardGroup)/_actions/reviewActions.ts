@@ -2,9 +2,24 @@
 
 import { cookies } from "next/headers"
 
+type ReviewData = {
+  id: string
+  rating: number
+  review: string
+  rentalId: string
+  propertyId: string
+  createdAt: string
+  updatedAt: string
+}
 
+type ReviewPrevState = {
+  success: boolean
+  statusCode: number
+  message: string
+  data: ReviewData
+}
 
-export async function reviewAction (rentalId:string, propertyId:string,prevState,formData : FormData){
+export async function reviewAction (rentalId:string, propertyId:string,prevState: ReviewPrevState,formData : FormData){
     const cookieStore = await cookies()
     const accessToken =  cookieStore.get("accessToken")?.value || ""
 

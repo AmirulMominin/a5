@@ -33,7 +33,7 @@ property ? : PropertiesType}
 const AddPropertyDialog = ({mode, property} : AddPropertyPropsType) => {
   console.log(" line 33 mode",mode)
   const [open, setOpen] = useState(false);
-  const actionFunction = mode === "create" ? createNewProperty : updateProperty.bind(null, property?.id);
+  const actionFunction = mode === "create" ? createNewProperty : updateProperty.bind(null, property?.id as string);
   const [state,action,pending] = useActionState(actionFunction, null)
 
 //   const [formData, setFormData] = useState({

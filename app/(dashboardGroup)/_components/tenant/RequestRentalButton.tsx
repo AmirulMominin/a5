@@ -10,14 +10,15 @@ const RequestRentalButton = ({propertyId, applied} : {propertyId:string, applied
     const handleClick = async(propertyId : string)=>{
         setSubmatting(true)
         const data = await requestForRent(propertyId)
-        console.log("line 11",data)
+        
+        console.log("line 11",data.message)
         if(data.success){
             console.log("line 13",data)
             setApply(true)
             toast.success("Rental Request Sent!!")
             setSubmatting(false)
         }else{
-            toast.error("Somthing went worong!")
+            toast.error(`Something went wrong! ${data.message}`)
             setSubmatting(false)
         }
         

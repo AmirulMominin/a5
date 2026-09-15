@@ -10,13 +10,15 @@ export type PropertiesType ={
       landlordId: string,
       categoryId: string,
       createdAt: string,
-      updatedAt: string
+      updatedAt: string,
+      content?: string,
+      area? : number
 }
 
 export type registerPrvStateType = {
     success: string,
     message: string
-}
+} | null 
 
 export type IUser = {
     success : boolean,
@@ -45,3 +47,5 @@ export type UserData = {
   updatedAt: string;
   stripeCustomerId?: string;
 };
+
+

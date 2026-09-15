@@ -13,39 +13,37 @@ import {
   Settings,
   UserRound,
 } from "lucide-react";
+import { IUser } from "@/types/types";
 
-type UserRole = "ADMIN" | "LANDLORD" | "TENANT";
+type UserRole = string;
 
 interface MenuItem {
   title: string;
   href: string;
   icon: React.ElementType;
 }
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+};
 
-const DashboardSidebar = ({user}) => {
-    console.log(user, "26")
+const DashboardSidebar = ({user}: {user: IUser}) => {
+    console.log(user, "line 26")
+
   const pathname = usePathname();
 
   // Temporary role
   // Later replace this with the real logged-in user's role
   const userRole: UserRole = user?.data.role;
-
+  console.log(userRole, "38")
   const commonMenu: MenuItem[] = [
     {
       title: "Dashboard",
       href: `/dashboard/${userRole.toLowerCase()}`,
       icon: LayoutDashboard,
-    },
-    {
-      title: "Profile",
-      href: `/dashboard/${userRole.toLowerCase()}/profile`,
-      icon: UserRound,
-    },
-    {
-      title: "Settings",
-      href: `/dashboard/${userRole.toLowerCase()}/settings`,
-      icon: Settings,
-    },
+    }
   ];
 
   const adminMenu: MenuItem[] = [
@@ -53,69 +51,35 @@ const DashboardSidebar = ({user}) => {
       title: "User Management",
       href: "/dashboard/admin/users",
       icon: Users,
-    },
-    {
-      title: "All Properties",
-      href: "/dashboard/admin/properties",
-      icon: Building2,
-    },
-    {
-      title: "All Rentals",
-      href: "/dashboard/admin/rentals",
-      icon: ClipboardList,
-    },
+    }
   ];
 
   const landlordMenu: MenuItem[] = [
     {
       title: "My Properties",
-      href: "/dashboard/landlord/properties",
+      href: "/dashboard/landloard/properties",
       icon: Building2,
     },
     {
       title: "Rental Requests",
-      href: "/dashboard/landlord/requests",
+      href: "/dashboard/landloard/requests",
       icon: ClipboardList,
-    },
-    {
-      title: "My Earnings",
-      href: "/dashboard/landlord/earnings",
-      icon: CreditCard,
-    },
+    }
   ];
 
   const tenantMenu: MenuItem[] = [
-    {
-      title: "Browse Properties",
-      href: "/properties",
-      icon: House,
-    },
+    
     {
       title: "My Requests",
       href: "/dashboard/tenant/requests",
       icon: ClipboardList,
-    },
-    {
-      title: "My Rentals",
-      href: "/dashboard/tenant/rentals",
-      icon: Building2,
-    },
-    {
-      title: "Payments",
-      href: "/dashboard/tenant/payments",
-      icon: CreditCard,
-    },
-    {
-      title: "Reviews",
-      href: "/dashboard/tenant/reviews",
-      icon: MessageSquare,
-    },
+    }
   ];
 
   const roleMenu =
-    userRole === "ADMIN"
+    userRole === "Admin"
       ? adminMenu
-      : userRole === "LANDLORD"
+      : userRole === "Landlord"
         ? landlordMenu
         : tenantMenu;
 

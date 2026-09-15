@@ -2,9 +2,8 @@
 "use server"
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
-const cookieStore = await cookies()
-const accessToken =  cookieStore.get("accessToken")?.value || ""
-console.log("accessToken from landloard", accessToken)
+
+// console.log("accessToken from landloard", accessToken)
 const categoryIdObject = {
     "FLAT" : "4be5d085-9555-4301-b909-4a661d12c89f",
     "HOUSE" : "1fb450e0-5efc-4200-b565-23922048d4d5",
@@ -15,7 +14,8 @@ export async function getProperty(){
 //     const cookieStore = await cookies()
 //     const accessToken =  cookieStore.get("accessToken")?.value || ""
 // console.log("accessToken from landloard", accessToken)
-   
+   const cookieStore = await cookies()
+const accessToken =  cookieStore.get("accessToken")?.value || ""
     if(!accessToken){
         return {
             success: false,
@@ -40,7 +40,36 @@ export async function getProperty(){
 //     "location": "Banani",
 //     "image" : "https://images.pexels.com/photos/28463539/pexels-photo-28463539.jpeg"
 
-export async function createNewProperty(prevState, formData: FormData){
+ type PropertyData = {
+  id: string
+  name: string
+  details: string
+  rent: string
+  type: string
+  image: string
+  location: string
+  status: string
+  landlordId: string
+  categoryId: string
+  createdAt: string
+  updatedAt: string
+}
+
+type PrevState = {
+  success: boolean
+  statusCode: number
+  message: string
+  data: PropertyData
+}
+
+type ActionState = {
+  success: boolean
+  message: string
+} | null
+
+export async function createNewProperty(prevState: ActionState, formData: FormData){
+    const cookieStore = await cookies()
+const accessToken =  cookieStore.get("accessToken")?.value || ""
     let categoryId
     const type =  formData.get("type")
     if(type === "PLOT"){
@@ -83,7 +112,10 @@ export async function createNewProperty(prevState, formData: FormData){
 
 
 
-export async function updateProperty(propertyId,prevState, formData: FormData){
+
+export async function updateProperty(propertyId: string,prevState:ActionState, formData: FormData){
+    const cookieStore = await cookies()
+const accessToken =  cookieStore.get("accessToken")?.value || ""
     let categoryId
     const type =  formData.get("type")
     if(type === "PLOT"){
@@ -126,6 +158,8 @@ export async function updateProperty(propertyId,prevState, formData: FormData){
 
 
 export  async function deleteProperty(propertyId: string){
+    const cookieStore = await cookies()
+const accessToken =  cookieStore.get("accessToken")?.value || ""
   const data = await fetch(`${process.env.BACKEND_URL}/api/landlord/properties/${propertyId}`,{
         method: "DELETE",
         headers:{
@@ -141,6 +175,8 @@ export  async function deleteProperty(propertyId: string){
 }
 
 export async function getAllRequests() {
+    const cookieStore = await cookies()
+const accessToken =  cookieStore.get("accessToken")?.value || ""
     const result =await fetch(`${process.env.BACKEND_URL}/api/landlord/properties/requests`,{
         method: "GET",
         headers:{
@@ -155,6 +191,8 @@ export async function getAllRequests() {
 
 
 export async function requestsDecision(status: string, propertyId: string) {
+    const cookieStore = await cookies()
+const accessToken =  cookieStore.get("accessToken")?.value || ""
     const result =await fetch(`${process.env.BACKEND_URL}/api/landlord/properties/requests/${propertyId}`,{
         method: "PATCH",
         headers:{

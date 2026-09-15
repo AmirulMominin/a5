@@ -94,7 +94,7 @@ const RegisterPage = () => {
             {/* Role */}
             <div className="space-y-2">
               <Label>Register as</Label>
-              <Select value={role} onValueChange={setRole}>
+              <Select value={role} onValueChange={(value) => setRole(value ?? "")}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>

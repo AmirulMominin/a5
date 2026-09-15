@@ -30,14 +30,14 @@ const NotFound = () => {
 
         {/* Buttons */}
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Button asChild>
+          <Button >
             <Link href="/">
               <Home className="mr-2 h-4 w-4" />
               Go Home
             </Link>
           </Button>
 
-          <Button variant="outline" asChild>
+          <Button variant="outline" >
             <Link href="/properties">
               <Search className="mr-2 h-4 w-4" />
               Browse Properties

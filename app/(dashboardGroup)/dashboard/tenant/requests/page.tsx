@@ -40,7 +40,17 @@ import { getAllRequest } from "@/app/(dashboardGroup)/_actions/tenentActions";
 //   },
 // ];
 
-
+type TenantRequestType = {
+  id: string
+  propertyId: string
+  createdAt: string
+  rentalStatus: "PENDING" | "APPROVE" | "REJECT" | "ACTIVE" | "REJECTED"
+  property: {
+    name: string
+    rent: number
+  }
+  review?: unknown[]
+}
 
 const TenantRequestsPage = async() => {
   const allRentalRequest = await getAllRequest()
@@ -78,7 +88,7 @@ console.log("47",allRentalRequest)
           </TableHeader>
 
           <TableBody>
-            {allRentalRequest.data?.map((request) => (
+            {allRentalRequest.data?.map((request: TenantRequestType) => (
               <TableRow key={request.id}>
                 {/* Property */}
                 <TableCell>
@@ -138,7 +148,7 @@ console.log("47",allRentalRequest)
                       // <Button size="sm">
                       //   Pay Now
                       // </Button>
-                      <ReviewDialog rentalId={request.id} propertyId={request.propertyId} reviewed={request.review?.length > 0}></ReviewDialog>
+                      <ReviewDialog rentalId={request.id} propertyId={request.propertyId} reviewed={(request.review?.length ?? 0) > 0}></ReviewDialog>
                       
                     )}
 
